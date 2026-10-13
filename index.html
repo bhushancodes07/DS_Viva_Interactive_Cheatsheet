@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Structures | Interactive Viva Cheatsheet</title>
+  <style>
+    :root {
+      --bg: #eef2f8;
+      --paper: #fff;
+      --ink: #182235;
+      --muted: #5c6880;
+      --line: #dce3ef;
+      --blue: #315efb;
+      --teal: #0f9d91;
+      --orange: #ef8b35;
+      --purple: #805ad5;
+      --soft: #f5f7fc;
+      --shadow: 0 12px 35px #1d315015
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 14px/1.38 Inter, Segoe UI, Arial, sans-serif
+    }
+
+    header {
+      background: linear-gradient(115deg, #182746, #244e8c 58%, #168e94);
+      color: #fff;
+      padding: 22px max(18px, calc((100vw - 1180px)/2)) 18px
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(23px, 3vw, 34px);
+      letter-spacing: -.7px
+    }
+
+    header p {
+      margin: 6px 0 15px;
+      color: #e1edff
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    button,
+    .tab {
+      font: inherit;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 12px;
+      background: var(--paper);
+      color: var(--ink)
+    }
+
+    header button {
+      border-color: #ffffff55;
+      background: #ffffff18;
+      color: #fff
+    }
+
+    button:hover,
+    .tab:hover {
+      transform: translateY(-1px)
+    }
+
+    button:focus-visible,
+    .tab:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #7dd3fc;
+      outline-offset: 2px
+    }
+
+    input {
+      min-width: 190px;
+      flex: 1;
+      border: 1px solid #ffffff55;
+      background: #ffffff18;
+      color: white;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font: inherit
+    }
+
+    input::placeholder {
+      color: #d8e6ff
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      max-width: 1180px;
+      margin: 16px auto 0;
+      padding: 0 16px
+    }
+
+    .tab {
+      font-weight: 700;
+      border-radius: 999px
+    }
+
+    .tab[aria-selected=true] {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue)
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 14px auto 35px;
+      padding: 0 16px
+    }
+
+    .page {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 19px;
+      margin-bottom: 16px
+    }
+
+    .page[hidden] {
+      display: none
+    }
+
+    .pagehead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 10px;
+      margin-bottom: 12px
+    }
+
+    .kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--blue);
+      font-weight: 800
+    }
+
+    .page h2 {
+      margin: 2px 0;
+      font-size: 25px
+    }
+
+    .tag {
+      background: #e8edff;
+      color: #2447b8;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 11px;
+      break-inside: avoid;
+      min-width: 0
+    }
+
+    .card h3 {
+      margin: 0 0 5px;
+      font-size: 14px;
+      color: #2447a9
+    }
+
+    .card p {
+      margin: 4px 0
+    }
+
+    .card ul {
+      padding-left: 17px;
+      margin: 4px 0
+    }
+
+    .card li {
+      margin: 2px 0
+    }
+
+    .wide {
+      grid-column: span 2
+    }
+
+    .full {
+      grid-column: 1/-1
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #edf3ff;
+      color: #2548a5;
+      font-size: 11px;
+      font-weight: 700;
+      margin: 2px 3px 1px 0
+    }
+
+    .graphic {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      background: var(--soft);
+      border-radius: 9px;
+      padding: 9px;
+      margin: 6px 0
+    }
+
+    .node {
+      border: 1.5px solid #91a8df;
+      border-radius: 7px;
+      background: white;
+      padding: 6px 8px;
+      text-align: center;
+      font-weight: 700;
+      min-width: 34px
+    }
+
+    .arrow {
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 18px
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: center
+    }
+
+    .stack .node {
+      width: 95px
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px
+    }
+
+    .tree .children {
+      display: flex;
+      gap: 35px;
+      position: relative
+    }
+
+    .smalltable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px
+    }
+
+    .smalltable th,
+    .smalltable td {
+      border: 1px solid var(--line);
+      padding: 5px;
+      text-align: left
+    }
+
+    .smalltable th {
+      background: var(--soft)
+    }
+
+    details {
+      border: 1px dashed #b9c7e0;
+      border-radius: 8px;
+      padding: 6px 8px;
+      margin-top: 6px
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #3154b8
+    }
+
+    .flashrow {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .flash {
+      flex: 1;
+      min-width: 170px;
+      text-align: left;
+      background: #f5f3ff;
+      border-color: #ded5ff
+    }
+
+    .flash .answer {
+      display: none;
+      color: #3e3768;
+      margin-top: 5px
+    }
+
+    .flash.open .answer {
+      display: block
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 0 16px 25px
+    }
+
+    body.night {
+      --bg: #101827;
+      --paper: #182235;
+      --ink: #eaf0ff;
+      --muted: #a9b7ce;
+      --line: #33435e;
+      --soft: #202e45;
+      --shadow: 0 12px 35px #0003
+    }
+
+    body.night .node {
+      background: #1b2940;
+      color: #eaf0ff
+    }
+
+    body.night .pill {
+      background: #263b62;
+      color: #d9e6ff
+    }
+
+    body.night .tag {
+      background: #283d70;
+      color: #e3ebff
+    }
+
+    body.night .flash {
+      background: #2b2747;
+      color: #f2edff
+    }
+
+    @media(max-width:850px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+
+      .wide {
+        grid-column: span 2
+      }
+    }
+
+    @media(max-width:560px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .wide,
+      .full {
+        grid-column: 1
+      }
+
+      .page {
+        padding: 13px
+      }
+
+      .pagehead {
+        flex-direction: column
+      }
+
+      .tabs {
+        gap: 5px
+      }
+
+      .tab {
+        padding: 7px 10px
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 8mm
+      }
+
+      body {
+        background: white;
+        color: #111;
+        font-size: 9pt;
+        line-height: 1.22
+      }
+
+      header {
+        padding: 0 0 5mm;
+        background: white;
+        color: #111;
+        border-bottom: 1px solid #888
+      }
+
+      header p,
+      .toolbar,
+      .tabs,
+      footer,
+      .screen-only {
+        display: none !important
+      }
+
+      h1 {
+        font-size: 19pt;
+        color: #111
+      }
+
+      main {
+        max-width: none;
+        margin: 0;
+        padding: 0
+      }
+
+      .page,
+      .page[hidden] {
+        display: block !important;
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        padding: 2mm 0;
+        margin: 0;
+        height: 270mm;
+        overflow: hidden;
+        break-after: page;
+        page-break-after: always
+      }
+
+      .page:last-child {
+        break-after: auto;
+        page-break-after: auto
+      }
+
+      .page h2 {
+        font-size: 17pt
+      }
+
+      .pagehead {
+        margin-bottom: 2mm;
+        padding-bottom: 2mm
+      }
+
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2mm
+      }
+
+      .card {
+        padding: 2mm;
+        border-radius: 2mm
+      }
+
+      .card h3 {
+        font-size: 9pt
+      }
+
+      .card p,
+      .card li {
+        font-size: 8pt
+      }
+
+      .mini {
+        font-size: 7pt
+      }
+
+      .graphic {
+        padding: 2mm;
+        margin: 1mm 0
+      }
+
+      .node {
+        padding: 2px 4px
+      }
+
+      .arrow {
+        font-size: 12px
+      }
+
+      details {
+        padding: 2px 4px
+      }
+
+      details>*:not(summary) {
+        display: block
+      }
+
+      summary {
+        font-size: 8pt
+      }
+
+      .tag {
+        font-size: 8pt
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Data Structures <span style="color:#8ef0df">Viva Cheatsheet</span></h1>
+    <p>Six modules · compact explanations · visual memory cues · interactive revision</p>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search a topic (e.g. AVL, hashing, BFS)…"
+        aria-label="Search topics">
+      <button id="night" type="button">◐ Theme</button>
+      <button id="all" type="button">Show all modules</button>
+      <button id="print" type="button">⎙ Print / Save PDF</button>
+    </div>
+  </header>
+  <nav class="tabs" aria-label="Modules">
+    <button class="tab" data-page="m1" aria-selected="true">I · Intro</button>
+    <button class="tab" data-page="m2" aria-selected="false">II · Stacks & Queues</button>
+    <button class="tab" data-page="m3" aria-selected="false">III · Linked Lists</button>
+    <button class="tab" data-page="m4" aria-selected="false">IV · Trees</button>
+    <button class="tab" data-page="m5" aria-selected="false">V · Graphs</button>
+    <button class="tab" data-page="m6" aria-selected="false">VI · Search & Sort</button>
+  </nav>
+  <main>
+    <section class="page" id="m1">
+      <div class="pagehead">
+        <div>
+          <div class="kicker">Module I · CO1</div>
+          <h2>Introduction to Data Structures</h2>
+        </div><span class="tag">Remember: organize → operate → optimize</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. Data structure</h3>
+          <p>A way to organize, store and manage data for efficient access and modification.</p>
+          <p><b>Primitive:</b> int, char, float, boolean. <b>Non-primitive:</b> arrays, lists, stacks, queues, trees,
+            graphs.</p>
+        </article>
+        <article class="card">
+          <h3>2. Classification</h3>
+          <div class="graphic">
+            <div class="node">Data structures</div>
+            <div class="arrow">→</div>
+            <div>
+              <div class="node">Linear</div><small>Array, list, stack, queue</small>
+            </div>
+            <div>
+              <div class="node">Non-linear</div><small>Tree, graph</small>
+            </div>
+          </div>
+          <p>Linear = sequential; non-linear = hierarchy/network.</p>
+        </article>
+        <article class="card">
+          <h3>3. Core operations</h3>
+          <p><b>Traverse</b> visit · <b>Insert</b> add · <b>Delete</b> remove · <b>Search</b> find · <b>Sort</b> order ·
+            <b>Update</b> change.</p>
+        </article>
+        <article class="card">
+          <h3>4. Abstract Data Type (ADT)</h3>
+          <p>Defines <b>what</b> operations do, not <b>how</b> they are implemented. Stack ADT: push, pop, peek. Can use
+            array or linked list.</p>
+        </article>
+        <article class="card">
+          <h3>5. Time complexity</h3>
+          <p>How runtime grows with input size <i>n</i>. Big-O examples:</p>
+          <div class="graphic"><span class="pill">O(1)</span><span class="pill">O(log n)</span><span
+              class="pill">O(n)</span><span class="pill">O(n log n)</span><span class="pill">O(n²)</span></div>
+          <p>Usually from faster growth to slower efficiency: O(1), O(log n), O(n), O(n log n), O(n²).</p>
+        </article>
+        <article class="card">
+          <h3>6. Space complexity</h3>
+          <p>Memory used as input grows. Fixed extra variables: <b>O(1)</b>; extra array of n elements: usually
+            <b>O(n)</b> auxiliary space.</p>
+        </article>
+        <article class="card full">
+          <h3>7. Real-world selection</h3>
+          <div class="graphic"><span class="pill">Browser back → Stack</span><span class="pill">Printer jobs →
+              Queue</span><span class="pill">Folders → Tree</span><span class="pill">Road map/social network →
+              Graph</span><span class="pill">Fast key lookup → Hash table</span></div>
+          <p>Choose a structure based on required operations, memory, data relationships and performance.</p>
+        </article>
+      </div>
+      <div class="flashrow"><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: ADT vs
+            implementation</b>
+          <div class="answer">ADT = what operations are available. Implementation = how the operations are built.</div>
+        </button><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: Big-O</b>
+          <div class="answer">Describes growth rate as input size increases, not an exact number of seconds.</div>
+        </button></div>
+    </section>
+
+    <section class="page" id="m2" hidden>
+      <div class="pagehead">
+        <div>
+          <div class="kicker">Module II · CO2</div>
+          <h2>Stacks and Queues</h2>
+        </div><span class="tag">Stack = LIFO · Queue = FIFO</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. Stack ADT</h3>
+          <p><b>LIFO:</b> last in, first out. Operations: <b>push</b> insert, <b>pop</b> remove top, <b>peek/top</b>
+            view top, <b>isEmpty</b> test.</p>
+          <div class="graphic">
+            <div class="stack">
+              <div class="node">30 · TOP</div>
+              <div class="node">20</div>
+              <div class="node">10</div>
+            </div><span class="mini">Pop removes 30 first</span>
+          </div>
+          <p>Overflow = full fixed stack; underflow = pop from empty stack.</p>
+        </article>
+        <article class="card">
+          <h3>2. Stack implementations</h3>
+          <p><b>Array:</b> `top = -1` initially; push increments top; pop decrements it. Fixed capacity.</p>
+          <p><b>Linked list:</b> top points to head; push/pop at head. Both operations <b>O(1)</b>; grows until memory
+            is exhausted.</p>
+        </article>
+        <article class="card">
+          <h3>3. Stack applications</h3>
+          <p>Function calls/call stack, recursion, infix conversion, postfix evaluation, balanced brackets, undo-redo,
+            browser back history.</p>
+          <p>Recursion needs a <b>base case</b>; otherwise stack overflow may occur.</p>
+        </article>
+        <article class="card">
+          <h3>4. Expressions</h3>
+          <p><b>Infix:</b> A+B · <b>Prefix:</b> +AB · <b>Postfix:</b> AB+</p>
+          <p>Infix `A+B*C` → postfix <b>`ABC*+`</b> because `*` has higher precedence.</p>
+          <p>Postfix evaluation: scan left→right, push operands; on operator pop right then left operand, calculate,
+            push result.</p>
+        </article>
+        <article class="card">
+          <h3>5. Infix → postfix</h3>
+          <p>Send operands directly to output. Use a stack for operators and parentheses. Pop higher-precedence
+            operators first; respect associativity. Parentheses control when to pop.</p>
+          <p><b>Bracket check:</b> push opening brackets; each closer must match the latest opener; stack must finish
+            empty.</p>
+        </article>
+        <article class="card">
+          <h3>6. Queue ADT</h3>
+          <p><b>FIFO:</b> first in, first out. <b>Enqueue</b> at rear, <b>dequeue</b> at front, <b>front/peek</b> reads
+            first element.</p>
+          <p>Applications: printer queue, task scheduling, network packets.</p>
+        </article>
+        <article class="card">
+          <h3>7. Linear vs circular queue</h3>
+          <p><b>Linear array queue:</b> front/rear indices; freed front slots may be wasted (false overflow).</p>
+          <p><b>Circular queue:</b> rear wraps around. Next position = `(rear+1) % size`; reuses free slots.
+            Enqueue/dequeue typically <b>O(1)</b>.</p>
+        </article>
+        <article class="card">
+          <h3>8. Priority queue & deque</h3>
+          <p><b>Priority queue:</b> served by priority (max or min); equal priorities may use arrival order.</p>
+          <p><b>Deque:</b> insert/delete at both ends. Input-restricted = insertion at one end; output-restricted =
+            deletion at one end.</p>
+        </article>
+        <article class="card">
+          <h3>9. Queue/stack conversions</h3>
+          <p><b>Stack using 2 queues:</b> costly-push method: push O(n), pop O(1).</p>
+          <p><b>Queue using 2 stacks:</b> input stack receives items; transfer to output stack only when output is
+            empty. Amortized O(1) per operation.</p>
+        </article>
+        <article class="card full">
+          <h3>10. Self-learning topics</h3>
+          <p><b>Undo/redo:</b> undo stack reverses latest action; redo stack restores it; a new action usually clears
+            redo history. <b>Prefix→postfix:</b> scan prefix right→left; push operands; on operator pop two expressions
+            and combine as `operand1 operand2 operator`.</p>
+        </article>
+      </div>
+      <div class="flashrow"><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: LIFO / FIFO</b>
+          <div class="answer">Stack: last inserted removed first. Queue: first inserted removed first.</div>
+        </button><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: postfix subtraction</b>
+          <div class="answer">First popped operand is the right operand; second popped operand is the left operand.
+          </div>
+        </button></div>
+    </section>
+
+    <section class="page" id="m3" hidden>
+      <div class="pagehead">
+        <div>
+          <div class="kicker">Module III · CO3</div>
+          <h2>Linked Lists</h2>
+        </div><span class="tag">Nodes + links</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. Basics & representation</h3>
+          <p>Dynamic linear structure of nodes. Each node stores data and pointer(s); `head` points to first node; empty
+            list: `head = NULL`.</p>
+          <div class="graphic">
+            <div class="node">10</div>
+            <div class="arrow">→</div>
+            <div class="node">20</div>
+            <div class="arrow">→</div>
+            <div class="node">30</div>
+            <div class="arrow">→</div><b>NULL</b>
+          </div>
+        </article>
+        <article class="card">
+          <h3>2. Types</h3>
+          <p><b>Singly:</b> next pointer, forward only.</p>
+          <p><b>Doubly:</b> prev + next, both directions.</p>
+          <p><b>Circular:</b> last points to first; stop when start is reached again.</p>
+        </article>
+        <article class="card">
+          <h3>3. Array vs linked list</h3>
+          <p><b>Array:</b> contiguous memory, index access O(1), middle insert/delete may shift items.</p>
+          <p><b>Linked list:</b> nodes need not be contiguous, index access O(n), extra pointer memory; known-position
+            link updates can be O(1).</p>
+        </article>
+        <article class="card">
+          <h3>4. Singly linked operations</h3>
+          <p>Traversal/search: follow `next` until NULL, worst-case <b>O(n)</b>. Insert/delete at head: <b>O(1)</b>. Can
+            insert at end or after a node; delete first, last or target node with correct pointer handling.</p>
+        </article>
+        <article class="card">
+          <h3>5. Doubly linked operations</h3>
+          <p>Update both `next` and `prev` links during insertion/deletion. Efficient backward traversal; extra memory
+            per node. Useful in browser navigation and playlists.</p>
+        </article>
+        <article class="card">
+          <h3>6. Stack/queue using list</h3>
+          <p><b>Stack:</b> `top = head`; push/pop at head, O(1).</p>
+          <p><b>Queue:</b> maintain `front` and `rear`; enqueue at rear, dequeue at front, O(1). If last node removed,
+            set both pointers to NULL.</p>
+        </article>
+        <article class="card">
+          <h3>7. Reverse a linked list</h3>
+          <p>Use `prev`, `current`, `next`. Save next; point current back to prev; advance all pointers. At end, prev is
+            new head.</p><span class="pill">Time O(n)</span><span class="pill">Extra space O(1)</span>
+        </article>
+        <article class="card">
+          <h3>8. Merge sorted lists</h3>
+          <p>Compare first remaining nodes, attach the smaller one, repeat; append the leftover list. For sizes n and m:
+            <b>O(n+m)</b> time.</p>
+        </article>
+        <article class="card">
+          <h3>9. Polynomial representation</h3>
+          <p>Each node stores <b>coefficient, exponent</b>. Example: 5x²+3x+7 → (5,2)→(3,1)→(7,0). Add terms with equal
+            exponents by adding coefficients.</p>
+        </article>
+        <article class="card full">
+          <h3>10. Applications & quick facts</h3>
+          <p>Linked lists suit dynamic collections, stacks/queues, playlists and navigation. <b>Head</b> = first node;
+            <b>tail</b> = last node; <b>NULL</b> = no next node in a non-circular list. Pointer mistakes can lose access
+            to the remaining list, so save links before changing them.</p>
+        </article>
+      </div>
+      <div class="flashrow"><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: Why linked
+            list?</b>
+          <div class="answer">Dynamic size and efficient insert/delete when the relevant node or link is known;
+            trade-off is no direct index access and pointer memory.</div>
+        </button><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: reverse pointers</b>
+          <div class="answer">prev, current, next. Save next before reversing current.next.</div>
+        </button></div>
+    </section>
+
+    <section class="page" id="m4" hidden>
+      <div class="pagehead">
+        <div>
+          <div class="kicker">Module IV · CO4</div>
+          <h2>Trees</h2>
+        </div><span class="tag">Root · branches · leaves</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. Terminology</h3>
+          <p><b>Root:</b> top node · <b>parent/child:</b> directly connected levels · <b>sibling:</b> same parent ·
+            <b>leaf:</b> no children · <b>degree:</b> number of children · <b>depth:</b> edges from root ·
+            <b>height:</b> longest downward path.</p>
+          <p>A tree with n nodes has n−1 edges; no cycles.</p>
+        </article>
+        <article class="card">
+          <h3>2. Binary tree & types</h3>
+          <p>Each node has at most two children: left and right. <b>Full:</b> each node has 0 or 2 children.
+            <b>Complete:</b> levels filled except possibly last, filled left-to-right. <b>Perfect:</b> all internal
+            nodes have 2 children and leaves share a level.</p>
+        </article>
+        <article class="card">
+          <h3>3. Representation</h3>
+          <p><b>Array, zero-indexed:</b> left = 2i+1; right = 2i+2; parent = floor((i−1)/2).</p>
+          <p><b>Linked:</b> each node stores data + left/right pointers. Arrays suit complete trees; linked nodes suit
+            flexible shapes.</p>
+        </article>
+        <article class="card">
+          <h3>4. Traversals</h3>
+          <div class="graphic">
+            <div class="tree">
+              <div class="node">A</div>
+              <div class="children">
+                <div class="node">B</div>
+                <div class="node">C</div>
+              </div>
+            </div>
+          </div>
+          <p><b>Preorder:</b> Root, Left, Right.</p>
+          <p><b>Inorder:</b> Left, Root, Right.</p>
+          <p><b>Postorder:</b> Left, Right, Root.</p>
+          <p>For A with children B,C: preorder A-B-C; inorder B-A-C; postorder B-C-A.</p>
+        </article>
+        <article class="card">
+          <h3>5. Binary Search Tree (BST)</h3>
+          <p>Left keys &lt; node &lt; right keys (distinct-key convention). Inorder gives sorted order. Search/insert:
+            O(h), average O(log n), worst O(n) if skewed.</p>
+        </article>
+        <article class="card">
+          <h3>6. BST insertion/search/deletion</h3>
+          <p><b>Insert/search:</b> compare, go left if smaller, right if greater.</p>
+          <p><b>Delete:</b> leaf → remove; one child → link parent to child; two children → replace with inorder
+            successor (smallest right-subtree key) or predecessor (largest left-subtree key).</p>
+        </article>
+        <article class="card">
+          <h3>7. AVL tree & balance</h3>
+          <p>Self-balancing BST. Balance factor:</p>
+          <div class="graphic"><b>BF = height(left) − height(right)</b></div>
+          <p>Allowed values: −1, 0, +1. Search/insert/delete: <b>O(log n)</b>. Insert by BST rules, then rebalance
+            ancestors.</p>
+        </article>
+        <article class="card">
+          <h3>8. AVL rotations</h3>
+          <p><b>LL:</b> right rotation. <b>RR:</b> left rotation. <b>LR:</b> left child left-rotate, then node
+            right-rotate. <b>RL:</b> right child right-rotate, then node left-rotate.</p>
+          <p>Example 30,20,10 → LL; right-rotate 30; 20 becomes root.</p>
+        </article>
+        <article class="card">
+          <h3>9. Expression & Huffman trees</h3>
+          <p><b>Expression tree:</b> operators internal, operands leaves; preorder=prefix, inorder=infix,
+            postorder=postfix.</p>
+          <p><b>Huffman:</b> repeatedly combine two lowest-frequency nodes; frequent symbols get shorter prefix-free
+            codes. Used for lossless compression.</p>
+        </article>
+        <article class="card">
+          <h3>10. B-Tree & B+ Tree</h3>
+          <p><b>B-Tree:</b> balanced multiway search tree, multiple keys/node; full node splits and middle key is
+            promoted.</p>
+          <p><b>B+ Tree:</b> records/pointers typically in leaves, internal nodes guide search; linked leaves help range
+            queries. Both used in databases/file systems.</p>
+        </article>
+        <article class="card full">
+          <h3>11. Threaded trees & file systems</h3>
+          <p><b>Threaded binary tree:</b> uses otherwise-NULL pointers for inorder predecessor/successor, allowing
+            traversal without recursion or an auxiliary stack. <b>File system:</b> folders and files form a hierarchy
+            represented naturally by a tree.</p>
+        </article>
+      </div>
+      <div class="flashrow"><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: AVL
+            rotations</b>
+          <div class="answer">LL = right; RR = left; LR = left then right; RL = right then left.</div>
+        </button><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: BST inorder</b>
+          <div class="answer">Inorder traversal visits keys in sorted order for a BST.</div>
+        </button></div>
+    </section>
+
+    <section class="page" id="m5" hidden>
+      <div class="pagehead">
+        <div>
+          <div class="kicker">Module V · CO5</div>
+          <h2>Graphs</h2>
+        </div><span class="tag">Vertices + edges</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. Graph basics</h3>
+          <p>Graph G=(V,E): V = vertices/nodes, E = edges. <b>Directed:</b> edges have direction. <b>Undirected:</b> no
+            direction. <b>Weighted:</b> edges have costs. Degree = connected edges; directed graph uses
+            indegree/outdegree.</p>
+        </article>
+        <article class="card">
+          <h3>2. Graph types</h3>
+          <p><b>Simple:</b> no loops/multiple edges. <b>Connected:</b> path between every vertex pair (undirected).
+            <b>Complete:</b> every pair connected. <b>Cyclic:</b> has a cycle. <b>DAG:</b> directed acyclic graph.</p>
+        </article>
+        <article class="card">
+          <h3>3. Adjacency matrix</h3>
+          <p>V×V table; entry 1 means edge exists (or stores weight). Edge check O(1), space <b>O(V²)</b>. Good for
+            dense graphs.</p>
+          <div class="graphic"><span class="pill">A-B</span><span class="pill">A-C</span><span class="pill">Matrix =
+              grid</span></div>
+        </article>
+        <article class="card">
+          <h3>4. Adjacency list</h3>
+          <p>Each vertex stores its neighbours. Space typically <b>O(V+E)</b>; good for sparse graphs. Undirected edge
+            normally appears in both endpoints' lists.</p>
+        </article>
+        <article class="card">
+          <h3>5. BFS</h3>
+          <p>Visits level by level; uses a <b>queue</b> + visited set/array. Finds shortest path by edge count in
+            unweighted graphs.</p>
+          <div class="graphic">
+            <div class="node">A</div>
+            <div class="arrow">→</div>
+            <div class="node">B,C</div>
+            <div class="arrow">→</div>
+            <div class="node">next level</div>
+          </div><span class="pill">O(V+E)</span>
+        </article>
+        <article class="card">
+          <h3>6. DFS</h3>
+          <p>Explores one path deeply, then backtracks; uses <b>recursion or stack</b>. Uses: cycle detection, connected
+            components, maze solving, topological sort. Adjacency list: <b>O(V+E)</b>.</p>
+        </article>
+        <article class="card">
+          <h3>7. BFS vs DFS</h3>
+          <p><b>BFS:</b> queue, level-by-level, shortest unweighted path. <b>DFS:</b> stack/recursion, deep then
+            backtrack, no general shortest-path guarantee. Both O(V+E) with adjacency list.</p>
+        </article>
+        <article class="card">
+          <h3>8. Topological sorting</h3>
+          <p>Order vertices of a <b>DAG</b> so every u→v has u before v. Methods: Kahn's algorithm (indegree-zero queue)
+            or DFS finish order. A directed cycle means no valid topological ordering.</p>
+        </article>
+        <article class="card">
+          <h3>9. Dijkstra's algorithm</h3>
+          <p>Single-source shortest paths with <b>non-negative edge weights</b>. Set source distance 0, others ∞;
+            repeatedly choose smallest tentative distance and relax outgoing edges. Priority queue improves efficiency.
+            Not valid for negative-weight edges.</p>
+        </article>
+        <article class="card full">
+          <h3>10. Real-world applications</h3>
+          <p><b>Maps:</b> locations=vertices, roads=edges, weights=distance/time; shortest-path methods help route
+            planning. <b>Networks:</b> computers/routers=vertices, links=edges; graphs support routing, connectivity
+            checks and network design.</p>
+        </article>
+      </div>
+      <div class="flashrow"><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: BFS
+            structure</b>
+          <div class="answer">Queue. BFS explores the nearest unvisited level first.</div>
+        </button><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: Dijkstra limit</b>
+          <div class="answer">Dijkstra assumes non-negative edge weights; negative edges can invalidate its result.
+          </div>
+        </button></div>
+    </section>
+
+    <section class="page" id="m6" hidden>
+      <div class="pagehead">
+        <div>
+          <div class="kicker">Module VI · CO6</div>
+          <h2>Searching and Sorting</h2>
+        </div><span class="tag">Find · arrange · hash</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. Searching</h3>
+          <p>Find a target/key in data. Choice depends on sorting, data layout and distribution. Main methods: linear,
+            binary, interpolation and hash lookup.</p>
+        </article>
+        <article class="card">
+          <h3>2. Linear search</h3>
+          <p>Check elements one by one; works sorted or unsorted. Best O(1), worst O(n). Simple and useful for
+            small/unsorted collections.</p>
+          <div class="graphic"><span class="node">4</span><span class="arrow">→</span><span class="node">8</span><span
+              class="arrow">→</span><span class="node">Target?</span></div>
+        </article>
+        <article class="card">
+          <h3>3. Binary search</h3>
+          <p>Compare middle; discard half each step. Requires <b>sorted data</b> and efficient random access. Time O(log
+            n); iterative extra space O(1).</p>
+        </article>
+        <article class="card">
+          <h3>4. Hashing & hash function</h3>
+          <p>Hash function maps key to table index. Example: `key % table_size`. Good function is fast and spreads keys
+            evenly. Hashing average operations O(1), worst O(n).</p>
+        </article>
+        <article class="card">
+          <h3>5. Collision resolution</h3>
+          <p><b>Collision:</b> different keys map to same slot.</p>
+          <p><b>Separate chaining:</b> bucket/list per slot.</p>
+          <p><b>Open addressing:</b> probe for another slot.</p>
+        </article>
+        <article class="card">
+          <h3>6. Open addressing methods</h3>
+          <p><b>Linear:</b> h(k)+i; simple, primary clustering.</p>
+          <p><b>Quadratic:</b> h(k)+c₁i+c₂i²; reduces primary, may have secondary clustering.</p>
+          <p><b>Double hashing:</b> h₁(k)+i·h₂(k); good spread; step should cover table.</p>
+          <p>Use modulo table size for index.</p>
+        </article>
+        <article class="card">
+          <h3>7. Load factor & rehashing</h3>
+          <div class="graphic"><b>α = entries / table capacity</b></div>
+          <p>When table gets crowded, create a larger table and reinsert keys using new indices. One rehash O(n);
+            geometric growth can give amortized O(1) insertion.</p>
+        </article>
+        <article class="card">
+          <h3>8. Bubble sort</h3>
+          <p>Compare adjacent elements and swap; largest unsorted element bubbles to end. Best O(n) with early exit;
+            average/worst O(n²). Stable if equals are not swapped.</p>
+        </article>
+        <article class="card">
+          <h3>9. Selection sort</h3>
+          <p>Find minimum in unsorted portion and swap into next position. Best/average/worst O(n²), auxiliary O(1). Few
+            swaps; standard version not stable.</p>
+        </article>
+        <article class="card">
+          <h3>10. Insertion sort</h3>
+          <p>Take next item, shift larger sorted items right, insert in correct place. Best O(n), average/worst O(n²);
+            stable. Good for small or nearly sorted data.</p>
+        </article>
+        <article class="card">
+          <h3>11. Merge sort</h3>
+          <p>Divide into halves, sort recursively, merge sorted halves. Best/average/worst O(n log n); array version
+            typically needs O(n) extra space. Stable with careful merging.</p>
+        </article>
+        <article class="card">
+          <h3>12. Quick sort</h3>
+          <p>Choose pivot, partition smaller/larger elements, recursively sort parts. Average O(n log n), worst O(n²);
+            performance depends on pivot and partition balance.</p>
+        </article>
+        <article class="card full">
+          <h3>13. Interpolation search</h3>
+          <p>Sorted numeric data; estimates target position from values. Average can be O(log log n) for near-uniform
+            data, worst O(n). Handle equal endpoints and divide-by-zero safely.</p>
+        </article>
+        <article class="card full">
+          <h3>Sorting complexity board</h3>
+          <table class="smalltable">
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Best</th>
+                <th>Average</th>
+                <th>Worst</th>
+                <th>Stable?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bubble (early exit)</td>
+                <td>O(n)</td>
+                <td>O(n²)</td>
+                <td>O(n²)</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Selection</td>
+                <td>O(n²)</td>
+                <td>O(n²)</td>
+                <td>O(n²)</td>
+                <td>No*</td>
+              </tr>
+              <tr>
+                <td>Insertion</td>
+                <td>O(n)</td>
+                <td>O(n²)</td>
+                <td>O(n²)</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Merge</td>
+                <td>O(n log n)</td>
+                <td>O(n log n)</td>
+                <td>O(n log n)</td>
+                <td>Yes*</td>
+              </tr>
+              <tr>
+                <td>Quick</td>
+                <td>O(n log n)*</td>
+                <td>O(n log n)</td>
+                <td>O(n²)</td>
+                <td>No*</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="mini">*Standard implementations. Quick sort best case assumes balanced partitions; stability depends
+            on implementation.</p>
+        </article>
+      </div>
+      <div class="flashrow"><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: binary search
+            requirement</b>
+          <div class="answer">Data must be sorted; each comparison discards about half the remaining range.</div>
+        </button><button class="flash" onclick="this.classList.toggle('open')"><b>Flashcard: stable sort</b>
+          <div class="answer">Equal-key items preserve their original relative order.</div>
+        </button></div>
+    </section>
+  </main>
+  <footer>Viva mode: switch modules, search topics, open flashcards, change theme, or print/save as PDF. Print layout is
+    designed for one module per A4 page.</footer>
+  <script>
+    const pages = [...document.querySelectorAll('.page')], tabs = [...document.querySelectorAll('.tab')], search = document.getElementById('search');
+    function show(id) {pages.forEach(p => p.hidden = p.id !== id); tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.page === id))); window.scrollTo({top: 0, behavior: 'smooth'});}
+    tabs.forEach(t => t.addEventListener('click', () => {search.value = ''; pages.forEach(p => p.querySelectorAll('.card').forEach(c => c.hidden = false)); show(t.dataset.page)}));
+    document.getElementById('all').addEventListener('click', () => {search.value = ''; pages.forEach(p => {p.hidden = false; p.querySelectorAll('.card').forEach(c => c.hidden = false)}); tabs.forEach(t => t.setAttribute('aria-selected', 'false'));});
+    document.getElementById('night').addEventListener('click', () => document.body.classList.toggle('night'));
+    document.getElementById('print').addEventListener('click', () => {pages.forEach(p => p.hidden = false); pages.forEach(p => p.querySelectorAll('.card').forEach(c => c.hidden = false)); window.print();});
+    search.addEventListener('input', () => {const q = search.value.trim().toLowerCase(); let first = null; pages.forEach(p => {let found = 0; p.querySelectorAll('.card').forEach(c => {const match = !q || c.innerText.toLowerCase().includes(q); c.hidden = !match; if (match) found++}); p.hidden = !!q && found === 0; if (found && !first) first = p.id}); tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.page === first)));});
+  </script>
+</body>
+
+</html>
